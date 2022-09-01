@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Activity {
     private String identification;
     private String description;
@@ -8,6 +10,85 @@ public class Activity {
     private String responsibleActivity;
     private String projectProfessionals;
     private String tasks;
+
+    public String showActivity() {
+        return  "\n---------------------------------" + 
+                "\n1 - Identification: " + getIdentification() +
+                "\n2 - Description: " + getDescription() + 
+                "\n3 - Start date: " + getStartDate() + 
+                "\n4 - Start hour: " + getStartHour() +
+                "\n5 - End date: " + getEndDate() +
+                "\n6 - End hour: " + getEndHour() +
+                "\n7 - Responsible for the activity: " + getResponsibleActivity() +
+                "\n8 - Professionals involved: " + getProjectProfessionals() +
+                "\n9 - Tasks: " + getTasks();
+                
+    }
+
+    public void editActivity() throws InterruptedException{
+        int key = 0;
+        Scanner input = new Scanner(System.in);
+        do {
+    
+            System.out.print("Edit project");
+            System.out.println(showActivity());
+            System.out.println("0 - RETURN");
+            System.out.println("---------------------------------");
+            System.out.print("Choose an option: ");
+            key = input.nextInt();
+            input.nextLine();
+    
+            switch (key) {
+                case 1:
+                    System.out.print("Identification: ");
+                    this.setIdentification(input.nextLine());
+                    break;
+                case 2:
+                    System.out.print("Description: ");
+                    this.setDescription(input.nextLine());;
+                    break;    
+                case 3:
+                    System.out.print("Start date: ");
+                    this.setStartDate(input.nextLine());                   
+                    break;
+                case 4:
+                    System.out.print("Start hour: ");
+                    this.setStartHour(input.nextLine());                  
+                    break;
+                case 5:
+                    System.out.print("End date: ");
+                    this.setEndDate(input.nextLine());                   
+                    break;
+                case 6:
+                    System.out.print("End hour: ");
+                    this.setEndHour(input.nextLine());                   
+                    break;
+                case 7:
+                    System.out.print("Responsible for the activity: ");
+                    this.setResponsibleActivity(input.nextLine());                   
+                    break;
+                case 8:
+                    System.out.print("Professionals involved: ");
+                    this.setProjectProfessionals(input.nextLine());                   
+                    break;
+                case 9:
+                    System.out.print("Tasks: ");
+                    this.setTasks(input.nextLine());                   
+                    break;
+                case 0:
+                    App.homeMenu();
+                    return;
+                default:
+                    System.out.println("Wrong choice! please enter a correct option.");
+                    editActivity();
+                    break;
+            }
+            
+            input.nextLine();
+    
+        } while (key != 0);
+     
+    }
 
 
     

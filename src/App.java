@@ -1,17 +1,24 @@
 import java.util.Scanner;
 
 public class App {
+    static User nUser = new User();
+    static Project nProject = new Project();
+    static Activity nActivity = new Activity();
     public static void main(String[] args) throws Exception {
         homeMenu();
     }
 
     public static void homeMenu() throws InterruptedException {
+
         int key;
         Scanner input = new Scanner(System.in);
         System.out.println("============== Project Management =============");
         System.out.println("1 - Create new user");
         System.out.println("2 - Create new Project");
         System.out.println("3 - Perform Activity");
+        System.out.println("4 - Edit user");
+        System.out.println("5 - Edit Project");
+        System.out.println("6 - Edit Activity");
         System.out.println("0 - EXIT");
         System.out.println("-----------------------------------------------");
         System.out.print("Choose an option: ");
@@ -32,6 +39,18 @@ public class App {
                 homeMenu();
                 break;
 
+            case 4:
+                nUser.editUser();
+                break;
+
+            case 5:
+                nProject.editProject();
+                break;
+
+            case 6:
+                nActivity.editActivity();
+                break;
+
             case 0:
                 System.out.println("Going out");
                 break;
@@ -44,7 +63,7 @@ public class App {
     }
 
     public static void menuUser() {
-        User nUser = new User();
+        
         Scanner input = new Scanner(System.in);
         System.out.print("Name: ");
         String name = input.nextLine();
@@ -52,15 +71,18 @@ public class App {
         String username = input.nextLine();
         System.out.print("Password: ");
         String password = input.nextLine();
-        System.out.println("User type GS - Graduate Student" ); 
-        System.out.println("          MS - Mastering Student"); 
-        System.out.println("          PS - PhD Student");     
-        System.out.println("          T - Teacher"); 
-        System.out.println("          R - Researcher");
-        System.out.println("          D - Developer"); 
-        System.out.println("          TR - Tester"); 
-        System.out.println("          A - Anayst"); 
-        System.out.println("          TC - Techniquet");
+        System.out.println("-----------------------");
+        System.out.println("User type:" );
+        System.out.println("GS - Graduate Student"); 
+        System.out.println("MS - Mastering Student"); 
+        System.out.println("PS - PhD Student");     
+        System.out.println(" T - Teacher"); 
+        System.out.println(" R - Researcher");
+        System.out.println(" D - Developer"); 
+        System.out.println("TR - Tester"); 
+        System.out.println(" A - Anayst"); 
+        System.out.println("TC - Techniquet");
+        System.out.println("-----------------------");
         System.out.print("Choose an option: ");  
         String usertype = input.nextLine();
 
@@ -134,13 +156,6 @@ public class App {
 
         System.out.print("Task to be performed: ");
         nActivity.setTasks(input.nextLine());
-
-
-
-
-
-
-
 
     }
 }

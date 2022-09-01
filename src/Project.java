@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Project {
     private String identification;
     private String description;
@@ -11,7 +13,97 @@ public class Project {
     private String valueScholarship;
     private String periodScholarship;
 
+    
 
+
+
+    public Project() {
+    }
+
+    public String showProject() {
+        return  "\n---------------------------------" + 
+                "\n1 - Identification: " + getIdentification() +
+                "\n2 - Description: " + getDescription() + 
+                "\n3 - Start date: " + getStartDate() + 
+                "\n4 - Start hour: " + getStartHour() +
+                "\n5 - End date: " + getEndDate() +
+                "\n6 - End hour: " + getEndHour() +
+                "\n7 - Project`s coordenador: " + getProjectCoordenador() +
+                "\n8 - Activities: " + getActivities() +
+                "\n9 - Scholarship value: " + getValueScholarship() +
+                "\n10 - Period of validity of the scholarship: " + getPeriodScholarship();
+                
+    }
+
+
+    public void editProject() throws InterruptedException{
+        int key = 0;
+        Scanner input = new Scanner(System.in);
+        do {
+    
+            System.out.print("Edit project");
+            System.out.println(showProject());
+            System.out.println("0 - RETURN");
+            System.out.println("---------------------------------");
+            System.out.print("Choose an option: ");
+            key = input.nextInt();
+            input.nextLine();
+    
+            switch (key) {
+                case 1:
+                    System.out.print("Identification: ");
+                    this.setIdentification(input.nextLine());
+                    break;
+                case 2:
+                    System.out.print("Description: ");
+                    this.setDescription(input.nextLine());;
+                    break;    
+                case 3:
+                    System.out.print("Start date: ");
+                    this.setStartDate(input.nextLine());                   
+                    break;
+                case 4:
+                    System.out.print("Start hour: ");
+                    this.setStartHour(input.nextLine());                  
+                    break;
+                case 5:
+                    System.out.print("End date: ");
+                    this.setEndDate(input.nextLine());                   
+                    break;
+                case 6:
+                    System.out.print("End hour: ");
+                    this.setEndHour(input.nextLine());                   
+                    break;
+                case 7:
+                    System.out.print("Project`s coordenador: ");
+                    this.setProjectCoordenador(input.nextLine());                   
+                    break;
+                case 8:
+                    System.out.print("Activities: ");
+                    this.setActivities(input.nextLine());                   
+                    break;
+                case 9:
+                    System.out.print("Scholarship value: ");
+                    this.setValueScholarship(input.nextLine());                   
+                    break;
+                case 10:
+                    System.out.print("Period of validity of the scholarship: ");
+                    this.setPeriodScholarship(input.nextLine());                   
+                    break;
+                case 0:
+                    App.homeMenu();
+                    return;
+                default:
+                    System.out.println("Wrong choice! please enter a correct option.");
+                    editProject();
+                    break;
+            }
+            
+            input.nextLine();
+    
+        } while (key != 0);
+     
+    }
 
     public String getIdentification() {
         return identification;
