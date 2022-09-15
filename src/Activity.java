@@ -1,37 +1,45 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Activity {
-    private String identification;
+    private String activityName;
     private String description;
     private String startDate;
     private String startHour;
     private String endDate;
     private String endHour;
     private String responsibleActivity;
-    private String projectProfessionals;
-    private String tasks;
 
-    public String showActivity() {
-        return  "\n---------------------------------" + 
-                "\n1 - Identification: " + getIdentification() +
-                "\n2 - Description: " + getDescription() + 
-                "\n3 - Start date: " + getStartDate() + 
-                "\n4 - Start hour: " + getStartHour() +
-                "\n5 - End date: " + getEndDate() +
-                "\n6 - End hour: " + getEndHour() +
-                "\n7 - Responsible for the activity: " + getResponsibleActivity() +
-                "\n8 - Professionals involved: " + getProjectProfessionals() +
-                "\n9 - Tasks: " + getTasks();
+    private List<User> activityParticipants = new ArrayList<User>();
+    private List<String> tasks = new ArrayList<String>();
+
+
+    public Activity() {
+    }
+
+    public void showActivity() {
+        System.out.println("---------------------------------------------"); 
+                System.out.println("1 - Identification: " + getActivityName()); 
+                System.out.println("2 - Description: " + getDescription()); 
+                System.out.println("3 - Start date: " + getStartDate()); 
+                System.out.println("4 - Start hour: " + getStartHour()); 
+                System.out.println("5 - End date: " + getEndDate()); 
+                System.out.println("6 - End hour: " + getEndHour());
+                System.out.println("7 - Responsible for the activity: " + getResponsibleActivity()); 
+                System.out.println("8 - Professionals involved: " + getActivityParticipants()); 
+                System.out.println("9 - Tasks: ");
                 
     }
 
-    public void editActivity() throws InterruptedException{
+    public void editActivity(User uConnected){
         int key = 0;
         Scanner input = new Scanner(System.in);
         do {
     
             System.out.print("Edit project");
-            System.out.println(showActivity());
+            showActivity();
             System.out.println("0 - RETURN");
             System.out.println("---------------------------------");
             System.out.print("Choose an option: ");
@@ -41,7 +49,7 @@ public class Activity {
             switch (key) {
                 case 1:
                     System.out.print("Identification: ");
-                    this.setIdentification(input.nextLine());
+                    this.setActivityName(input.nextLine());
                     break;
                 case 2:
                     System.out.print("Description: ");
@@ -69,18 +77,18 @@ public class Activity {
                     break;
                 case 8:
                     System.out.print("Professionals involved: ");
-                    this.setProjectProfessionals(input.nextLine());                   
+                    //this.setActivityParticipants(input.nextLine());                   
                     break;
                 case 9:
                     System.out.print("Tasks: ");
-                    this.setTasks(input.nextLine());                   
+                    //this.setTasks(input.nextLine());                   
                     break;
                 case 0:
-                    App.homeMenu();
+                    App.homePageMenu(uConnected);
                     return;
                 default:
                     System.out.println("Wrong choice! please enter a correct option.");
-                    editActivity();
+                    editActivity(uConnected);
                     break;
             }
             
@@ -92,11 +100,11 @@ public class Activity {
 
 
     
-    public String getIdentification() {
-        return identification;
+    public String getActivityName() {
+        return activityName;
     }
-    public void setIdentification(String identification) {
-        this.identification = identification;
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
     }
     public String getDescription() {
         return description;
@@ -134,19 +142,23 @@ public class Activity {
     public void setResponsibleActivity(String responsibleActivity) {
         this.responsibleActivity = responsibleActivity;
     }
-    public String getProjectProfessionals() {
-        return projectProfessionals;
+
+    public List<User> getActivityParticipants() {
+        return activityParticipants;
     }
-    public void setProjectProfessionals(String projectProfessionals) {
-        this.projectProfessionals = projectProfessionals;
+
+    public void setActivityParticipants(User activityParticipants) {
+        this.activityParticipants.add(activityParticipants);
     }
-    public String getTasks() {
+
+    public List<String> getTasks() {
         return tasks;
     }
+
     public void setTasks(String tasks) {
-        this.tasks = tasks;
+        this.tasks.add(tasks);
     }
 
+   
 
-    
 }

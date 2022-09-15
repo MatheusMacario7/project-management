@@ -1,115 +1,50 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 
 public class Project {
-    private String identification;
+    private String projectName;
     private String description;
     private String startDate;
     private String startHour;
     private String endDate;
     private String endHour;
     private String projectCoordenador;
-    private String projectProfessionals;
-    private String activities;
     private String valueScholarship;
     private String periodScholarship;
+    private String status;
+
+    private List<User> projectParticipants = new ArrayList<User>();
+    //private List<Activity> activities = new ArrayList<Activity>();
+    private HashMap<String, Activity> activities = new HashMap<String, Activity>();
 
     
 
-
-
-    public Project() {
+    public  Project() { 
     }
 
-    public String showProject() {
-        return  "\n---------------------------------" + 
-                "\n1 - Identification: " + getIdentification() +
-                "\n2 - Description: " + getDescription() + 
-                "\n3 - Start date: " + getStartDate() + 
-                "\n4 - Start hour: " + getStartHour() +
-                "\n5 - End date: " + getEndDate() +
-                "\n6 - End hour: " + getEndHour() +
-                "\n7 - Project`s coordenador: " + getProjectCoordenador() +
-                "\n8 - Activities: " + getActivities() +
-                "\n9 - Scholarship value: " + getValueScholarship() +
-                "\n10 - Period of validity of the scholarship: " + getPeriodScholarship();
-                
+    public Project(String projecName, String description, String startDate, String startHour, String endDate, String endHour, String projectCoordenador, String status, String valueScholarship, String periodScholarship) {
+        this.projectName = projecName;
+        this.description = description;
+        this.startDate = startDate;
+        this.startHour = startHour;
+        this.endDate = endDate;
+        this.endHour = endHour;
+        this.projectCoordenador = projectCoordenador;
+        this.status = status;
+        this.valueScholarship = valueScholarship;
+        this.periodScholarship = periodScholarship;
+
     }
 
-
-    public void editProject() throws InterruptedException{
-        int key = 0;
-        Scanner input = new Scanner(System.in);
-        do {
     
-            System.out.print("Edit project");
-            System.out.println(showProject());
-            System.out.println("0 - RETURN");
-            System.out.println("---------------------------------");
-            System.out.print("Choose an option: ");
-            key = input.nextInt();
-            input.nextLine();
-    
-            switch (key) {
-                case 1:
-                    System.out.print("Identification: ");
-                    this.setIdentification(input.nextLine());
-                    break;
-                case 2:
-                    System.out.print("Description: ");
-                    this.setDescription(input.nextLine());;
-                    break;    
-                case 3:
-                    System.out.print("Start date: ");
-                    this.setStartDate(input.nextLine());                   
-                    break;
-                case 4:
-                    System.out.print("Start hour: ");
-                    this.setStartHour(input.nextLine());                  
-                    break;
-                case 5:
-                    System.out.print("End date: ");
-                    this.setEndDate(input.nextLine());                   
-                    break;
-                case 6:
-                    System.out.print("End hour: ");
-                    this.setEndHour(input.nextLine());                   
-                    break;
-                case 7:
-                    System.out.print("Project`s coordenador: ");
-                    this.setProjectCoordenador(input.nextLine());                   
-                    break;
-                case 8:
-                    System.out.print("Activities: ");
-                    this.setActivities(input.nextLine());                   
-                    break;
-                case 9:
-                    System.out.print("Scholarship value: ");
-                    this.setValueScholarship(input.nextLine());                   
-                    break;
-                case 10:
-                    System.out.print("Period of validity of the scholarship: ");
-                    this.setPeriodScholarship(input.nextLine());                   
-                    break;
-                case 0:
-                    App.homeMenu();
-                    return;
-                default:
-                    System.out.println("Wrong choice! please enter a correct option.");
-                    editProject();
-                    break;
-            }
-            
-            input.nextLine();
-    
-        } while (key != 0);
-     
-    }
 
-    public String getIdentification() {
-        return identification;
+    public String getProjectName() {
+        return projectName;
     }
-    public void setIdentification(String identification) {
-        this.identification = identification;
+    public void setProjectName(String identification) {
+        this.projectName = identification;
     }
     public String getDescription() {
         return description;
@@ -135,18 +70,7 @@ public class Project {
     public void setProjectCoordenador(String projectCoordenador) {
         this.projectCoordenador = projectCoordenador;
     }
-    public String getProjectProfessionals() {
-        return projectProfessionals;
-    }
-    public void setProjectProfessionals(String projectProfessionals) {
-        this.projectProfessionals = projectProfessionals;
-    }
-    public String getActivities() {
-        return activities;
-    }
-    public void setActivities(String activities) {
-        this.activities = activities;
-    }
+   
     public String getValueScholarship() {
         return valueScholarship;
     }
@@ -172,6 +96,29 @@ public class Project {
         this.endHour = endHour;
     }
 
+    public String getStatus() {
+        return status;
+    }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<User> getProjectParticipants() {
+        return projectParticipants;
+    }
+
+    public void setProjectParticipants(User participants) {
+        this.projectParticipants.add(participants);
+    }
+
+    public void setActivities(String activityName, Activity activities) {
+        this.activities.put(activityName, activities);
+    }
     
+    public HashMap<String, Activity> getActivities(){
+        return activities;
+    }
+
+
 }
