@@ -105,7 +105,7 @@ public class App {
                 break;
 
             case 4:
-                searchMenu();
+                searchMenu(uConnected);
                 homePageMenu(uConnected);
                 break;
 
@@ -527,7 +527,7 @@ public class App {
         }        
     }
 
-    public static void searchMenu() {
+    public static void searchMenu(User uConnected) {
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("============== Search =============");
@@ -548,7 +548,7 @@ public class App {
                 }else{
                     viewUser(users.get(email_user));
                 }
-                searchMenu();
+                searchMenu(uConnected);
                 break;
             case 2:
                 System.out.print("Project name -> ");
@@ -558,7 +558,7 @@ public class App {
                 }else{
                 viewProject(projects.get(project_search));
                 }
-                searchMenu();
+                searchMenu(uConnected);
                 break;
             case 3:
                 System.out.print("Activity name -> ");
@@ -568,7 +568,11 @@ public class App {
                 }else{
                 viewActivity(activities.get(activity_search));
                 }
-                searchMenu();
+                searchMenu(uConnected);
+                break;
+
+            case 0:
+                homePageMenu(uConnected);
                 break;
         
             default:
