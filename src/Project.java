@@ -19,9 +19,20 @@ public class Project {
     //private List<Activity> activities = new ArrayList<Activity>();
     private HashMap<String, Activity> activities = new HashMap<String, Activity>();
 
-    
+    public Project() {
+    }
 
-    public  Project() { 
+    public  Project(String projecName, String description, String startDate, String startHour, String endDate, String endHour, String projectCoordenador, String status) { 
+        this.projectName = projecName;
+        this.description = description;
+        this.startDate = startDate;
+        this.startHour = startHour;
+        this.endDate = endDate;
+        this.endHour = endHour;
+        this.projectCoordenador = projectCoordenador;
+        this.status = status;
+        this.valueScholarship = "0,00";
+        this.periodScholarship = "0";
     }
 
     public Project(String projecName, String description, String startDate, String startHour, String endDate, String endHour, String projectCoordenador, String status, String valueScholarship, String periodScholarship) {

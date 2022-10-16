@@ -127,7 +127,8 @@ public class App {
     }
 
     public static void menuUser() {
-        String usertype = "";
+        String institution = "";
+        String subtype = "";
         
         Scanner input = new Scanner(System.in);
         System.out.print("Name: ");
@@ -149,31 +150,68 @@ public class App {
         System.out.println("6 -> Developer"); 
         System.out.println("7 -> Tester"); 
         System.out.println("8 -> Anayst"); 
-        System.out.println("----------------------------");
         System.out.println("9 -> Technician");
         System.out.println("----------------------------");
         System.out.print("Choose an option -> ");  
         int op = Integer.parseInt(input.next());
         
+        switch (op) {
+            //Student
+            case 1:
+                subtype = "Graduate Student";
+                nUser = new Student( name, email, password, subtype);
+                break;
+            case 2:
+                subtype = "Mastering Student";
+                nUser = new Student( name, email, password, subtype);
+                break;
+            case 3:
+                subtype = "PhD Student";
+                nUser = new Student( name, email, password, subtype);
+                break;
 
-        if (op == 1) usertype = "Graduate Student";
-        if (op == 2) usertype = "Mastering Student";
-        if (op == 3) usertype = "PhD Student";
-        if (op == 4) usertype = "Teacher";
-        if (op == 5) usertype = "Researcher";
-        if (op == 6) usertype = "Developer";
-        if (op == 7) usertype = "Tester";
-        if (op == 8) usertype = "Anayst";
-        if (op == 9) usertype = "Technician";
-        
+            //Teacher
+            case 4:
+                input.nextLine();
+                System.out.print("Name of the institution where you work -> ");
+                institution = input.nextLine();
+                nUser = new Teacher( name, email, password, institution);
+                break;
+            //Researcher
+            case 5:
+                input.nextLine();
+                System.out.print("Name of the institution where you work -> ");
+                institution = input.nextLine();
+                nUser = new Researcher( name, email, password, institution);
+                break;
 
-        nUser = new User( name, email, password, usertype, null);
+            //Professional
+            case 6:
+                subtype = "Developer";
+                nUser = new Professional( name, email, password, subtype);
+                break;
+            case 7:
+                subtype = "Tester";
+                nUser = new Professional( name, email, password, subtype);
+                break;
+            case 8:
+                subtype = "Anayst";
+                nUser = new Professional( name, email, password, subtype);
+                break;
+            case 9:
+                subtype = "Technician";
+                nUser = new Professional( name, email, password, subtype);
+                break;
+
+            default:
+                break;
+        }
         users.put(email, nUser);
 
     }
 
     public static void newProject(User uConnected) {
-        if (!(uConnected.getUserType().equals("Teacher") || uConnected.getUserType().equals("Researcher"))) {
+        if (!(uConnected.getClass().getName().equals("Teacher") || uConnected.getClass().getName().equals("Researcher"))) {
             System.out.println("Only teachers and researchers can create a project");
             homePageMenu(uConnected);
         }else{
@@ -198,7 +236,7 @@ public class App {
             System.out.print("End hour: ");
             String endHour = input.nextLine();
 
-            Project nProject = new Project(projectName, description, startDate, startHour, endDate, endHour, projectCoordenador,"In process of creation",null,null);
+            Project nProject = new Project(projectName, description, startDate, startHour, endDate, endHour, projectCoordenador,"In process of creation");
             projects.put(projectName, nProject);
             uConnected.setMyProjects(nProject);
         }
@@ -238,7 +276,7 @@ public class App {
             System.out.println("6 -> End hour: " + pConnected.getEndHour());    
             System.out.println("7 -> Project`s coordenador: " + pConnected.getProjectCoordenador());    
             System.out.println("8 -> Activities: " + pConnected.getActivities().size());    
-            System.out.println("9 -> Scholarship value: " + pConnected.getValueScholarship());    
+            System.out.println("9 -> Scholarship value: R$" + pConnected.getValueScholarship());    
             System.out.println("10 -> Period of validity of the scholarship: " + pConnected.getPeriodScholarship());
             System.out.println("11 -> Project participants: "+ pConnected.getProjectParticipants().size());
             System.out.println("12 -> Status : " + pConnected.getStatus());
@@ -312,7 +350,7 @@ public class App {
                     showProject(pConnected, uConnected, index);
                 case 12:
                     if(pConnected.getStatus().equals("In process of creation")) {
-                        if(pConnected.getValueScholarship() == null || pConnected.getPeriodScholarship() == null || pConnected.getProjectParticipants().isEmpty()){
+                        if(pConnected.getValueScholarship() == "0,00" || pConnected.getPeriodScholarship() == "0" || pConnected.getProjectParticipants().isEmpty()){
                             System.out.println("Incomplete information! Give more information about the project.");
                         }else{
                             pConnected.setStatus("Started");
@@ -415,8 +453,7 @@ public class App {
                     System.out.println("No activities");
                 }else{
                     showActivity(pConnected);
-                    System.out.println("0 -> RETURN");
-                    System.out.print("Choose an option -> "); 
+                    System.out.print("Press any key to go back -> "); 
                     int key = Integer.parseInt(input.next());
 
                 }
@@ -537,7 +574,7 @@ public class App {
         System.out.println("3 -> Search by activity");
         System.out.println("0 -> RETURN");
         System.out.print("Choose an option -> "); 
-        int op = Integer.parseInt(input.next());
+        int op = Integer.parseInt(input.nextLine());
 
         switch (op) {
             case 1:
@@ -546,13 +583,15 @@ public class App {
                 if (!users.containsKey(email_user)) {
                 System.out.println("User not found!");
                 }else{
-                    viewUser(users.get(email_user));
+                    System.out.println("-------------------------------------");
+                    users.get(email_user).viewUser();
+                    //viewUser(users.get(email_user));
                 }
                 searchMenu(uConnected);
                 break;
             case 2:
                 System.out.print("Project name -> ");
-                String project_search = input.next();
+                String project_search = input.nextLine();
                 if (!projects.containsKey(project_search)) {
                     System.out.println("Project not found!");
                 }else{
@@ -562,7 +601,7 @@ public class App {
                 break;
             case 3:
                 System.out.print("Activity name -> ");
-                String activity_search = input.next();
+                String activity_search = input.nextLine();
                 if (!activities.containsKey(activity_search)) {
                     System.out.println("Activity not found!");
                 }else{
@@ -581,11 +620,11 @@ public class App {
 
     }
 
-    public static void viewUser(User u) {
+    /*public static void viewUser(User u) {
         System.out.println("-------------------------------------");
         System.out.println("Name -> " + u.getName());
         System.out.println("Email -> " + u.getEmail());
-        System.out.println("User type -> " + u.getUserType());
+        System.out.println("User type -> " + u.);
         System.out.println("Projects -> ");
             if(!u.getMyProjects().isEmpty()) {
                 int i = 1;    
@@ -595,7 +634,6 @@ public class App {
                 System.out.println("Scholarship value -> R$" + u.getScholarshipvalue());
             }else{
                 System.out.print("No project!");
-                System.out.println("Scholarship value -> R$0.00");
             }
 
         System.out.println("Activities -> ");
@@ -606,7 +644,7 @@ public class App {
             }else{
                 System.out.println("No Activity!");
             }
-    }
+    }*/
 
     public static void viewProject(Project p) {
             System.out.println("---------------------------------------------" );
@@ -618,7 +656,7 @@ public class App {
             System.out.println("End hour: " + p.getEndHour());    
             System.out.println("Project`s coordenador: " + p.getProjectCoordenador());    
             System.out.println("Activities: " + p.getActivities().size());    
-            System.out.println("Scholarship value: " + p.getValueScholarship());    
+            System.out.println("Scholarship value: R$" + p.getValueScholarship());    
             System.out.println("Period of validity of the scholarship: " + p.getPeriodScholarship());
             System.out.println("Project participants: "+ p.getProjectParticipants().size());
             System.out.println("Status : " + p.getStatus());

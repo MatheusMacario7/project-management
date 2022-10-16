@@ -7,7 +7,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String userType;
+    //private String userType;
     private String scholarshipValue;
    
     private List<Project> myProjects = new ArrayList<Project>();
@@ -15,28 +15,37 @@ public class User {
     
 
 
-public User(String name, String email, String password, String userType, String scholarshipValue ) {
+public User(String name, String email, String password, String scholarshipValue) {
     this.name = name;
     this.email = email;
     this.password = password;
-    this.userType = userType;
+    //this.userType = userType;
     this.scholarshipValue = scholarshipValue;
+    
+}
+
+public User(String name, String email, String password) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    //this.userType = userType;
+    this.scholarshipValue = "R$0,00";
     
 }
 public User() {
 }
 
-public String showUser() {
+public String showUser(User uConnected) {
     return  "\n---------------------------------" + 
-            "\n1 - Name: " + getName() +
-            "\n2 - User type: "  + getUserType() +
-            "\n3 - Password: " + getPassword(); 
+            "\n1 -> Name: " + uConnected.getName() +
+            "\n2 -> Email: "  + uConnected.getEmail() +
+            "\n3 -> Password: " + uConnected.getPassword(); 
 }
 
 public void editUser(User uConnected){
         Scanner input = new Scanner(System.in);
         System.out.print("Edit user");
-        System.out.println(showUser());
+        System.out.println(showUser(uConnected));
         System.out.println("0 - RETURN");
         System.out.println("---------------------------------");
         System.out.print("Choose an option: ");
@@ -50,8 +59,8 @@ public void editUser(User uConnected){
                 editUser(uConnected);
                 break;
             case 2:
-                System.out.print("User type: ");
-                uConnected.setUserType(input.nextLine());
+                System.out.print("Email: ");
+                uConnected.setEmail(input.nextLine());
                 editUser(uConnected);
                 break;    
             case 3:
@@ -72,6 +81,31 @@ public void editUser(User uConnected){
 }
 
 
+public void viewUser() {
+    System.out.println("Name -> " + this.getName());
+    System.out.println("Email -> " + this.getEmail());
+    System.out.println("Projects -> ");
+        if(!this.getMyProjects().isEmpty()) {
+            int i = 1;    
+            for (Project p : this.getMyProjects()){
+                System.out.println((i++)+" -> "+p.getProjectName());
+            }
+            System.out.println("Scholarship value -> R$" + this.getScholarshipvalue());
+        }else{
+            System.out.println("No project!");
+        }
+
+    System.out.println("Activities -> ");
+        if(!this.getMyActivity().isEmpty()) {
+            int i = 1;    
+            for ( Activity a : this.getMyActivity())
+                System.out.println((i++)+" -> "+a.getActivityName());
+        }else{
+            System.out.println("No Activity!");
+        }
+}
+
+
 
 
 public String getPassword() {
@@ -80,12 +114,12 @@ public String getPassword() {
 public void setPassword(String password) {
     this.password = password;
 }
-public String getUserType() {
+/*public String getUserType() {
     return userType;
 }
 public void setUserType(String userType) {
     this.userType = userType;
-}
+}*/
 public String getName() {
     return name;
 }
@@ -119,5 +153,4 @@ public void setScholarshipvalue(String scholarshipvalue) {
     this.scholarshipValue = scholarshipvalue;
 }
 
-   
 }
