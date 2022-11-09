@@ -32,7 +32,7 @@ public class Activity {
                 
     }
 
-    public void editActivity(User uConnected){
+    public void editActivity(User uConnected) throws InterruptedException{
         int key = 0;
         Scanner input = new Scanner(System.in);
         do {

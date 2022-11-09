@@ -42,15 +42,18 @@ public String showUser(User uConnected) {
             "\n3 -> Password: " + uConnected.getPassword(); 
 }
 
-public void editUser(User uConnected){
+public void editUser(User uConnected) throws InterruptedException{
         Scanner input = new Scanner(System.in);
         System.out.print("Edit user");
         System.out.println(showUser(uConnected));
         System.out.println("0 - RETURN");
         System.out.println("---------------------------------");
         System.out.print("Choose an option: ");
-        int op = Integer.parseInt(input.next());
-        input.nextLine();
+        int op = App.loadInput();
+
+        if (op == -1) {
+            editUser(uConnected);
+        }
 
         switch (op) {
             case 1:
@@ -114,12 +117,6 @@ public String getPassword() {
 public void setPassword(String password) {
     this.password = password;
 }
-/*public String getUserType() {
-    return userType;
-}
-public void setUserType(String userType) {
-    this.userType = userType;
-}*/
 public String getName() {
     return name;
 }

@@ -5,6 +5,24 @@ public class App {
     static User nUser = new User();
     static Project nProject = new Project();
     static Activity nActivity = new Activity();
+
+    public static int loadInput() throws InterruptedException {
+        Scanner input =  new Scanner(System.in);
+        boolean correctInput = false;
+        int key = -1;
+        while (!correctInput) {
+            try {
+                key = Integer.parseInt(input.next());
+                
+                correctInput = true;
+                
+            } catch (Exception e) {
+                System.out.println("Invalid Input. Enter available values!");
+                return key;
+            }  
+        }
+        return key;
+    }
     public static void main(String[] args) throws Exception {
         startMenu();
     }
@@ -13,7 +31,7 @@ public class App {
     static HashMap<String, Project> projects = new HashMap<String, Project>();
     static HashMap<String, Activity> activities = new HashMap<String, Activity>();
 
-    public static void startMenu() {
+    public static void startMenu() throws InterruptedException {
         int key;
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -21,11 +39,15 @@ public class App {
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("1 -> Create new user");
         System.out.println("2 -> Login");
-        System.out.println("3 -> Project / activity record");
+        //System.out.println("3 -> Project / activity record");
         System.out.println("0 -> Close app");
         System.out.println("------------------------------------------------------");
         System.out.print("Choose an option -> ");
-        key = Integer.parseInt(input.next());
+        key = loadInput();
+
+        if (key == -1) {
+            startMenu();
+        }
 
         switch (key) {
             case 1:
@@ -35,21 +57,20 @@ public class App {
             case 2:
                 loginMenu();
                 break;
-            case 3:
-
-                break;
+    
             case 0:
                 System.out.println("Logging out...");
                 break;
         
             default:
-                System.out.println("Wrong choice");
+                System.out.println("Wrong choice! please enter a correct option.");
+                startMenu();
                 break;
         }
 
     }
 
-    public static void loginMenu() {
+    public static void loginMenu() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("============== Login =============");
@@ -72,7 +93,7 @@ public class App {
         }
     }
 
-    public static void homePageMenu(User uConnected){
+    public static void homePageMenu(User uConnected) throws InterruptedException{
 
         int key;
         Scanner input = new Scanner(System.in);
@@ -87,7 +108,11 @@ public class App {
         System.out.println("0 -> EXIT");
         System.out.println("--------------------------------------");
         System.out.print("Choose an option -> ");
-        key = Integer.parseInt(input.next());
+        key = loadInput();
+
+        if (key == -1) {
+            homePageMenu(uConnected);
+        }
 
         switch (key) {
             case 1:
@@ -120,13 +145,13 @@ public class App {
                 startMenu();
                 break;
             default:
-                System.out.println("Wrong choice");
+                System.out.println("Wrong choice! please enter a correct option.");
                 break;
         }
 
     }
 
-    public static void menuUser() {
+    public static void menuUser() throws InterruptedException {
         String institution = "";
         String subtype = "";
         
@@ -149,11 +174,15 @@ public class App {
         System.out.println("Professional--------------- ");
         System.out.println("6 -> Developer"); 
         System.out.println("7 -> Tester"); 
-        System.out.println("8 -> Anayst"); 
+        System.out.println("8 -> Analyst"); 
         System.out.println("9 -> Technician");
         System.out.println("----------------------------");
         System.out.print("Choose an option -> ");  
-        int op = Integer.parseInt(input.next());
+        int op = loadInput();
+
+        if (op == -1) {
+            menuUser();
+        }
         
         switch (op) {
             //Student
@@ -172,14 +201,12 @@ public class App {
 
             //Teacher
             case 4:
-                input.nextLine();
                 System.out.print("Name of the institution where you work -> ");
                 institution = input.nextLine();
                 nUser = new Teacher( name, email, password, institution);
                 break;
             //Researcher
-            case 5:
-                input.nextLine();
+            case 5:     
                 System.out.print("Name of the institution where you work -> ");
                 institution = input.nextLine();
                 nUser = new Researcher( name, email, password, institution);
@@ -204,13 +231,14 @@ public class App {
                 break;
 
             default:
+                System.out.println("Wrong choice! please enter a correct option.");
                 break;
         }
         users.put(email, nUser);
 
     }
 
-    public static void newProject(User uConnected) {
+    public static void newProject(User uConnected) throws InterruptedException {
         if (!(uConnected.getClass().getName().equals("Teacher") || uConnected.getClass().getName().equals("Researcher"))) {
             System.out.println("Only teachers and researchers can create a project");
             homePageMenu(uConnected);
@@ -242,7 +270,7 @@ public class App {
         }
     }
 
-    public static void myProjects(User uConnected) {
+    public static void myProjects(User uConnected) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("============== My Projects =============");
@@ -256,8 +284,11 @@ public class App {
             System.out.println("You are not part of any project!");
         }
         System.out.println("0 -> RETURN");
-        System.out.print("Choose an option -> ");  
-        int op = Integer.parseInt(input.next());
+        System.out.print("Choose an option -> ");
+        int op = loadInput();
+        if (op == -1) {
+            myProjects(uConnected);
+        }  
         if (op != 0) {
             --op;
             showProject(uConnected.getMyProjects().get(op), uConnected, op);
@@ -265,7 +296,7 @@ public class App {
         
     }
 
-    public static void showProject(Project pConnected, User uConnected, int index) {
+    public static void showProject(Project pConnected, User uConnected, int index) throws InterruptedException {
             Scanner input = new Scanner(System.in);
             System.out.println("---------------------------------------------" );
             System.out.println("1 -> Project name: " + pConnected.getProjectName()); 
@@ -285,7 +316,11 @@ public class App {
 
             if (uConnected.getMyProjects().get(index).getProjectCoordenador().equals(uConnected.getName())) {
                 System.out.print("Select an option to edit -> ");
-                int op = Integer.parseInt(input.next());
+                int op = loadInput();
+
+                if (op == -1) {
+                    showProject(pConnected, uConnected, index);
+                }
                 editProject(pConnected, uConnected, op, index);
             }else{
                 System.out.print("Press any key to go back -> ");  
@@ -293,7 +328,7 @@ public class App {
             }  
     }
 
-    public static void editProject(Project pConnected, User uConnected, int op, int index){
+    public static void editProject(Project pConnected, User uConnected, int op, int index) throws InterruptedException{
         Scanner input = new Scanner(System.in);
         if (op != 0) {
             switch (op) {
@@ -379,7 +414,7 @@ public class App {
         }else myProjects(uConnected);
     }
 
-    public static void projectParticipantsMenu(Project pConnected, User uConnected) {
+    public static void projectParticipantsMenu(Project pConnected, User uConnected) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("============== Project participants =============");
@@ -388,7 +423,11 @@ public class App {
         System.out.println("2 -> See participants");
         System.out.println("0 -> RETURN");
         System.out.print("Choose an option -> "); 
-        int op = Integer.parseInt(input.next()); 
+        int op = loadInput();
+
+        if (op == -1) {
+            projectParticipantsMenu(pConnected, uConnected);
+        } 
 
         switch (op) {
             case 1:
@@ -430,7 +469,7 @@ public class App {
 
     }
 
-    public static void activitytMenu(User uConnected, Project pConnected) {
+    public static void activitytMenu(User uConnected, Project pConnected) throws InterruptedException {
         Scanner input = new Scanner(System.in);
 
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
@@ -440,7 +479,11 @@ public class App {
         System.out.println("2 -> See activities");
         System.out.println("0 -> RETURN");
         System.out.print("Choose an option -> "); 
-        int op = Integer.parseInt(input.next());
+        int op = loadInput();
+
+        if (op == -1) {
+            activitytMenu(uConnected, pConnected);
+        }
         
         switch (op) {
             case 1:
@@ -461,6 +504,7 @@ public class App {
                 break;
         
             default:
+                System.out.println("Wrong choice! please enter a correct option.");
                 break;
         }
 
@@ -468,7 +512,7 @@ public class App {
 
     }
 
-    public static void newActivity(User uConnected, Project pConnected) {
+    public static void newActivity(User uConnected, Project pConnected) throws InterruptedException {
         Scanner input = new Scanner(System.in);
 
         Activity nActivity = new Activity();
@@ -498,7 +542,7 @@ public class App {
         
     }
 
-    public static void activityParticipantsMenu(Project pConnected, Activity nActivity) {
+    public static void activityParticipantsMenu(Project pConnected, Activity nActivity) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("============== Activity participants =============");
@@ -507,7 +551,11 @@ public class App {
         System.out.println("2 -> See participants");
         System.out.println("0 -> RETURN");
         System.out.print("Choose an option -> "); 
-        int op = Integer.parseInt(input.next()); 
+        int op = loadInput();
+
+        if (op == -1) {
+            activityParticipantsMenu(pConnected, nActivity);
+        } 
 
         switch (op) {
             case 1:
@@ -564,7 +612,7 @@ public class App {
         }        
     }
 
-    public static void searchMenu(User uConnected) {
+    public static void searchMenu(User uConnected) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println("============== Search =============");
@@ -574,7 +622,11 @@ public class App {
         System.out.println("3 -> Search by activity");
         System.out.println("0 -> RETURN");
         System.out.print("Choose an option -> "); 
-        int op = Integer.parseInt(input.nextLine());
+        int op = loadInput();
+
+        if (op == -1) {
+            searchMenu(uConnected);
+        }
 
         switch (op) {
             case 1:
@@ -585,7 +637,6 @@ public class App {
                 }else{
                     System.out.println("-------------------------------------");
                     users.get(email_user).viewUser();
-                    //viewUser(users.get(email_user));
                 }
                 searchMenu(uConnected);
                 break;
@@ -615,36 +666,11 @@ public class App {
                 break;
         
             default:
+                System.out.println("Wrong choice! please enter a correct option.");
                 break;
         }
 
     }
-
-    /*public static void viewUser(User u) {
-        System.out.println("-------------------------------------");
-        System.out.println("Name -> " + u.getName());
-        System.out.println("Email -> " + u.getEmail());
-        System.out.println("User type -> " + u.);
-        System.out.println("Projects -> ");
-            if(!u.getMyProjects().isEmpty()) {
-                int i = 1;    
-                for (Project p : u.getMyProjects()){
-                    System.out.println((i++)+" -> "+p.getProjectName());
-                }
-                System.out.println("Scholarship value -> R$" + u.getScholarshipvalue());
-            }else{
-                System.out.print("No project!");
-            }
-
-        System.out.println("Activities -> ");
-            if(!u.getMyActivity().isEmpty()) {
-                int i = 1;    
-                for ( Activity a : u.getMyActivity())
-                    System.out.println((i++)+" -> "+a.getActivityName());
-            }else{
-                System.out.println("No Activity!");
-            }
-    }*/
 
     public static void viewProject(Project p) {
             System.out.println("---------------------------------------------" );
