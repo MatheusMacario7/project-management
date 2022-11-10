@@ -46,7 +46,7 @@ Code Smells encontrados:
     
     }
     ```
-    -[Project](https://github.com/MatheusMacario7/project-management/blob/Project-management---POO/src/Project.java)
+    - [Project](https://github.com/MatheusMacario7/project-management/blob/Project-management---POO/src/Project.java)
     ```Java
     public  Project(String projecName, String description, String startDate, String startHour, String endDate, String endHour, String projectCoordenador, String status) { 
         this.projectName = projecName;
