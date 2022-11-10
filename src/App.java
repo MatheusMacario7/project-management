@@ -60,6 +60,7 @@ public class App {
     
             case 0:
                 System.out.println("Logging out...");
+                System.exit(0);
                 break;
         
             default:
@@ -138,7 +139,6 @@ public class App {
                 users.remove(uConnected.getEmail(), uConnected);
                 System.out.println("Account removed");
                 startMenu(); 
-                //nActivity.editActivity(uConnected);
                 break;
 
             case 0:
@@ -324,7 +324,7 @@ public class App {
                 editProject(pConnected, uConnected, op, index);
             }else{
                 System.out.print("Press any key to go back -> ");  
-                int op = Integer.parseInt(input.next());
+                String op = input.next();
             }  
     }
 
@@ -497,7 +497,7 @@ public class App {
                 }else{
                     showActivity(pConnected);
                     System.out.print("Press any key to go back -> "); 
-                    int key = Integer.parseInt(input.next());
+                    String key = input.next();
 
                 }
                 activitytMenu(uConnected, pConnected);

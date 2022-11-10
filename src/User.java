@@ -7,7 +7,6 @@ public class User {
     private String name;
     private String email;
     private String password;
-    //private String userType;
     private String scholarshipValue;
    
     private List<Project> myProjects = new ArrayList<Project>();
@@ -19,7 +18,6 @@ public User(String name, String email, String password, String scholarshipValue)
     this.name = name;
     this.email = email;
     this.password = password;
-    //this.userType = userType;
     this.scholarshipValue = scholarshipValue;
     
 }
@@ -28,7 +26,6 @@ public User(String name, String email, String password) {
     this.name = name;
     this.email = email;
     this.password = password;
-    //this.userType = userType;
     this.scholarshipValue = "R$0,00";
     
 }
