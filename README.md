@@ -23,10 +23,12 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 Code Smells encontrados:
 
 - `Large Class`
-    [App](https://github.com/MatheusMacario7/project-management/blob/Project-management---POO/src/App.java)
+
+    - [App](https://github.com/MatheusMacario7/project-management/blob/Project-management---POO/src/App.java)
 
 - `Duplicated Code`
-    -[User](https://github.com/MatheusMacario7/project-management/blob/Project-management---POO/src/User.java)
+
+    - [User](https://github.com/MatheusMacario7/project-management/blob/Project-management---POO/src/User.java)
     ```Java
         public User(String name, String email, String password, String scholarshipValue) {
     this.name = name;
