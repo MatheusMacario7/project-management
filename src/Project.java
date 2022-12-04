@@ -4,82 +4,53 @@ import java.util.List;
 
 
 public class Project {
-    private String projectName;
-    private String description;
-    private String startDate;
-    private String startHour;
-    private String endDate;
-    private String endHour;
-    private String projectCoordenador;
     private String valueScholarship;
     private String periodScholarship;
-    private String status;
+    private ProjectsParameters projectsParameters;
 
     private List<User> projectParticipants = new ArrayList<User>();
-    //private List<Activity> activities = new ArrayList<Activity>();
     private HashMap<String, Activity> activities = new HashMap<String, Activity>();
 
     public Project() {
     }
 
-    public  Project(String projecName, String description, String startDate, String startHour, String endDate, String endHour, String projectCoordenador, String status) { 
-        this.projectName = projecName;
-        this.description = description;
-        this.startDate = startDate;
-        this.startHour = startHour;
-        this.endDate = endDate;
-        this.endHour = endHour;
-        this.projectCoordenador = projectCoordenador;
-        this.status = status;
+    public Project(ProjectsParameters nProjectsParameters) { 
+        this.projectsParameters = nProjectsParameters;
         this.valueScholarship = "0,00";
         this.periodScholarship = "0";
-    }
-
-    public Project(String projecName, String description, String startDate, String startHour, String endDate, String endHour, String projectCoordenador, String status, String valueScholarship, String periodScholarship) {
-        this.projectName = projecName;
-        this.description = description;
-        this.startDate = startDate;
-        this.startHour = startHour;
-        this.endDate = endDate;
-        this.endHour = endHour;
-        this.projectCoordenador = projectCoordenador;
-        this.status = status;
-        this.valueScholarship = valueScholarship;
-        this.periodScholarship = periodScholarship;
-
     }
 
     
 
     public String getProjectName() {
-        return projectName;
+        return projectsParameters.getProjectName();
     }
     public void setProjectName(String identification) {
-        this.projectName = identification;
+        this.projectsParameters.setProjectName(identification);
     }
     public String getDescription() {
-        return description;
+        return projectsParameters.getDescription();
     }
     public void setDescription(String description) {
-        this.description = description;
+        this.projectsParameters.setDescription(description);
     }
     public String getStartDate() {
-        return startDate;
+        return projectsParameters.getStartDate();
     }
     public void setStartDate(String startDate) {
-        this.startDate = startDate;
+        this.projectsParameters.setStartDate(startDate);
     }
     public String getEndDate() {
-        return endDate;
+        return projectsParameters.getEndDate();
     }
     public void setEndDate(String endDate) {
-        this.endDate = endDate;
+        this.projectsParameters.setEndDate(endDate);
     }
     public String getProjectCoordenador() {
-        return projectCoordenador;
+        return projectsParameters.getProjectCoordenador();
     }
     public void setProjectCoordenador(String projectCoordenador) {
-        this.projectCoordenador = projectCoordenador;
+        this.projectsParameters.setProjectCoordenador(projectCoordenador);
     }
    
     public String getValueScholarship() {
@@ -95,24 +66,24 @@ public class Project {
         this.periodScholarship = periodScholarship;
     }
     public String getStartHour() {
-        return startHour;
+        return projectsParameters.getStartHour();
     }
     public String getEndHour() {
-        return endHour;
+        return projectsParameters.getEndHour();
     }
     public void setStartHour(String startHour) {
-        this.startHour = startHour;
+        this.projectsParameters.setStartHour(startHour);
     }
     public void setEndHour(String endHour) {
-        this.endHour = endHour;
+        this.projectsParameters.setEndHour(endHour);
     }
 
     public String getStatus() {
-        return status;
+        return projectsParameters.getStatus();
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.projectsParameters.setStatus(status);
     }
 
     public List<User> getProjectParticipants() {

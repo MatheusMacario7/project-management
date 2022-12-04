@@ -39,7 +39,6 @@ public class App {
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("1 -> Create new user");
         System.out.println("2 -> Login");
-        //System.out.println("3 -> Project / activity record");
         System.out.println("0 -> Close app");
         System.out.println("------------------------------------------------------");
         System.out.print("Choose an option -> ");
@@ -97,7 +96,6 @@ public class App {
     public static void homePageMenu(User uConnected) throws InterruptedException{
 
         int key;
-        Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("============== Home page =============");
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -151,17 +149,7 @@ public class App {
 
     }
 
-    public static void menuUser() throws InterruptedException {
-        String institution = "";
-        String subtype = "";
-        
-        Scanner input = new Scanner(System.in);
-        System.out.print("Name: ");
-        String name = input.nextLine();
-        System.out.print("Email: ");
-        String email = input.nextLine();
-        System.out.print("Password: ");
-        String password = input.nextLine();
+    public static void showUserType() {
         System.out.println("----------------------------");
         System.out.println("User type:" );
         System.out.println("Student---------------------");
@@ -177,65 +165,41 @@ public class App {
         System.out.println("8 -> Analyst"); 
         System.out.println("9 -> Technician");
         System.out.println("----------------------------");
-        System.out.print("Choose an option -> ");  
+        System.out.print("Choose an option -> ");
+    }
+
+    public static void menuUser() throws InterruptedException {
+       
+        Scanner input = new Scanner(System.in);
+        System.out.print("Name: ");
+        String name = input.nextLine();
+        System.out.print("Email: ");
+        String email = input.nextLine();
+        System.out.print("Password: ");
+        String password = input.nextLine();
+        showUserType(); 
         int op = loadInput();
 
         if (op == -1) {
             menuUser();
         }
-        
-        switch (op) {
-            //Student
-            case 1:
-                subtype = "Graduate Student";
-                nUser = new Student( name, email, password, subtype);
-                break;
-            case 2:
-                subtype = "Mastering Student";
-                nUser = new Student( name, email, password, subtype);
-                break;
-            case 3:
-                subtype = "PhD Student";
-                nUser = new Student( name, email, password, subtype);
-                break;
 
-            //Teacher
-            case 4:
-                System.out.print("Name of the institution where you work -> ");
-                institution = input.nextLine();
+        if (op >= 1 && op <= 3 ) {
+            nUser = new Student( name, email, password, op);
+        }
+        if (op >= 6 && op <= 9 ) {
+            nUser = new Professional( name, email, password, op);
+        }
+        else {
+            System.out.print("Name of the institution where you work -> ");
+            String institution = input.nextLine();
+            if (op == 4) {
                 nUser = new Teacher( name, email, password, institution);
-                break;
-            //Researcher
-            case 5:     
-                System.out.print("Name of the institution where you work -> ");
-                institution = input.nextLine();
-                nUser = new Researcher( name, email, password, institution);
-                break;
-
-            //Professional
-            case 6:
-                subtype = "Developer";
-                nUser = new Professional( name, email, password, subtype);
-                break;
-            case 7:
-                subtype = "Tester";
-                nUser = new Professional( name, email, password, subtype);
-                break;
-            case 8:
-                subtype = "Anayst";
-                nUser = new Professional( name, email, password, subtype);
-                break;
-            case 9:
-                subtype = "Technician";
-                nUser = new Professional( name, email, password, subtype);
-                break;
-
-            default:
-                System.out.println("Wrong choice! please enter a correct option.");
-                break;
+            }
+            else
+                nUser = new Researcher( name, email, password, institution);   
         }
         users.put(email, nUser);
-
     }
 
     public static void newProject(User uConnected) throws InterruptedException {
@@ -243,35 +207,46 @@ public class App {
             System.out.println("Only teachers and researchers can create a project");
             homePageMenu(uConnected);
         }else{
+            ProjectsParameters nProjectsParameters =  new ProjectsParameters();
             Scanner input = new Scanner(System.in);
            
             String projectCoordenador = uConnected.getName();
+            nProjectsParameters.setProjectCoordenador(projectCoordenador);
+            
             System.out.print("Project Name : ");
             String projectName = input.nextLine();
+            nProjectsParameters.setProjectName(projectName);
 
             System.out.print("Description: ");
             String description = input.nextLine();
+            nProjectsParameters.setDescription(description);
 
             System.out.print("Start date: ");
             String startDate = input.nextLine();
+            nProjectsParameters.setStartDate(startDate);
 
             System.out.print("Start hour: ");
             String startHour = input.nextLine();
+            nProjectsParameters.setStartHour(startHour);
 
             System.out.print("End date: ");
             String endDate = input.nextLine();
+            nProjectsParameters.setEndDate(endDate);
 
             System.out.print("End hour: ");
             String endHour = input.nextLine();
+            nProjectsParameters.setEndHour(endHour);
 
-            Project nProject = new Project(projectName, description, startDate, startHour, endDate, endHour, projectCoordenador,"In process of creation");
+            String status = "In process of creation";
+            nProjectsParameters.setStatus(status);
+
+            Project nProject = new Project(nProjectsParameters);
             projects.put(projectName, nProject);
             uConnected.setMyProjects(nProject);
         }
     }
 
     public static void myProjects(User uConnected) throws InterruptedException {
-        Scanner input = new Scanner(System.in);
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
         System.out.println("============== My Projects =============");
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");

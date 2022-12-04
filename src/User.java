@@ -13,15 +13,6 @@ public class User {
     private List<Activity> myActivity = new ArrayList<Activity>();
     
 
-
-public User(String name, String email, String password, String scholarshipValue) {
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.scholarshipValue = scholarshipValue;
-    
-}
-
 public User(String name, String email, String password) {
     this.name = name;
     this.email = email;

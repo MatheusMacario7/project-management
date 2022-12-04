@@ -2,9 +2,25 @@ public class Professional extends User{
     
     private String subtype;
 
-    public Professional(String name, String email, String password, String subtype) {
+    public Professional(String name, String email, String password, int op) {
         super(name, email, password);
-        this.subtype = subtype;
+        this.subtype = choiceSubtype(op);
+    }
+
+    private String choiceSubtype(int op) {
+        if (op == 6) {
+            return "Developer";
+        }
+        if (op == 7) {
+            return "Tester";
+        }
+        if (op == 8) {
+            return "Anayst";
+        }
+        if (op == 9) {
+            return "Technician";
+        }
+        return "";
     }
 
     public String getSubtype() {
